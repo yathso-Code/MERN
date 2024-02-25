@@ -1,0 +1,14 @@
+.about_box{
+  width: 100vw;
+  height: 600px;
+  background-color: black;
+  /* border: 2px solid red; */
+  position: relative;
+}
+.about_box .text_box{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}

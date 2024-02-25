@@ -1,0 +1,16 @@
+.hero_box{
+   width: 100vw;
+   height: 600px;
+   /* border: 2px solid red; */
+   background-color: black;
+   position: relative;
+}
+.hero_box .text_box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.hero_box .text_box h1{
+    color: white;
+}

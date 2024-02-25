@@ -1,0 +1,37 @@
+.login_box{
+    /* border: 2px solid red; */
+    width: 100vw;
+    height: 590px;
+    background-color: black;
+    position: relative;
+}
+.login_box form{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   border: 2px solid rgb(77, 76, 76);
+   padding: 10px 25px;
+   border-radius: 10px 0;
+   background-color: rgb(47, 48, 48);
+
+}
+.login_box h1{
+   color: white;
+   text-align: center;
+}
+.login_box form input{
+   border-radius: 20px;
+   margin: 20px 0px;
+   padding: 9px 10px;
+   border: none;
+   outline: none;
+}
+.login_box form button{
+   background-color: teal;
+   padding: 5px 10px;
+   color: white;
+   border-radius: 10px 0;
+   border: none;
+   cursor: pointer;
+}
