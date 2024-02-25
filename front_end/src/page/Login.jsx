@@ -1,26 +1,53 @@
 import React from 'react'
 import './Login.css'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [user, setUser] = useState({
+  const [userLogin, setUserLogin] = useState({
     email: "",
     password: "",
   });
+
+    //  navigate -------------
+ let navigate = useNavigate();
 
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
 
-    setUser({
-      ...user,
+    setUserLogin({
+      ...userLogin,
       [name]: value,
     });
   };
 
-  let handleSubmit=(e)=>{
+  let handleSubmit= async(e)=>{
     e.preventDefault();
-    console.log("login=>",user);
+    console.log("login=>",userLogin);
+    try {
+      let result = await fetch('http://localhost:20202/api/ben/login',{
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userLogin),
+      })
+      if(result.ok){
+        let data = await result.json()
+        console.log(" token=>  ", data)
+        // set token on localStorage--------
+        localStorage.setItem("token", data.token)
+        
+        setUserLogin({email: "", password: "", });
+          // navigate('/')
+      }else{
+          alert("pleace check your ID & password...")
+      }
+      // console.log("token=> out  ", result)
+    } catch (error) {
+      alert("Incurrect user id or password")
+    }
   }
   return (
     <div className='login_box'>
@@ -28,13 +55,13 @@ const Login = () => {
          <h1>Login</h1>
 
          <input type='email' placeholder='enter email'
-          value={user.email}
+          value={userLogin.email}
           onChange={handleInput}
           name='email'/>
          <br></br>
 
          <input type='password' placeholder='enter password'
-         value={user.password}
+         value={userLogin.password}
          onChange={handleInput}
           name='password'/>
          <br></br>

@@ -34,6 +34,8 @@ const SignUp = () => {
         body: JSON.stringify(user),
       });
       if(result.ok){
+        alert("login Successful")
+        //  console.log("token=>", result)
          setUser({ username: "", email: "", phone: "", password: "", });
         navigate('/login');
       }

@@ -20,13 +20,13 @@ const Contact = () => {
     });
   };
    // handle fomr getFormSubmissionInfo
-   const handleSubmit = (e) => {
+   const handleSubmit =  async (e) => {
     e.preventDefault();
 
     console.log("contact=>",contact);
     try {
       // ------------fetching api data ------------------------
-      let result = fetch('http://localhost:20202/api/form/contact',{
+      let result = await fetch('http://localhost:20202/api/form/contact',{
         method: "POST",
         headers:{
             "Content-Type": "application/json",

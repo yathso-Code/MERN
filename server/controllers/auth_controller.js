@@ -18,7 +18,7 @@ let register = async (req, resp) => {
      let userExist = await DB.findOne({ email: email });
      //  ----check whether user exists----------------------
      if (userExist) {
-         return resp.send("user is already exist ");
+         return resp.json("user is already exist ");
      } else {
          // Encrypt the password
          let encPass = await bcrypt.hash(password, 10);
@@ -50,11 +50,12 @@ let login = async(req, resp)=>{
         let userExist = await DB.findOne({ email });
         // check user is exist or not--------
         if(!userExist){
-           return resp.send("Invalid Email ")
+           return resp.Status(404).json("Invalid Email ")
         }
 
        // compait password---
        let user = await bcrypt.compare(password, userExist.password);
+       
        console.log(user)
        if(user){
            resp.status(200).json({
@@ -64,7 +65,7 @@ let login = async(req, resp)=>{
            })
        }else{
           
-           resp.send("invalude password")
+           resp.json("invalude password")
        }
        
 

@@ -5,7 +5,7 @@ let contact = async (req, resp) => {
         let { username, email, message } = req.body;
 
         let x = await Db.create({ username, email, message });
-        resp.send({ message: x });
+        resp.json({ message: x });
     } catch (err) {
         console.log("home page => ", err);
     }
