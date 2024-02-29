@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
+import { useContext, } from "react";
+import { ThemeContext } from '../App';
 
 const SignUp = () => {
+
+  const {storeTonken} = useContext(ThemeContext);
+
+
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -43,7 +49,7 @@ const SignUp = () => {
            }else{
                
               // set the token on localStorage---
-              localStorage.setItem("token", x.token);
+              storeTonken(x)
 
               setUser({ username: "", email: "", phone: "", password: "", });
               //  switch page to home page -----

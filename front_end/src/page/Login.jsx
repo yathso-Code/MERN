@@ -2,8 +2,14 @@ import React from 'react'
 import './Login.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext, } from "react";
+import { ThemeContext } from '../App';
+
 
 const Login = () => {
+  
+  const {storeTonken} = useContext(ThemeContext);
+
   const [userLogin, setUserLogin] = useState({
     email: "",
     password: "",
@@ -24,7 +30,7 @@ const Login = () => {
 
   let handleSubmit= async(e)=>{
     e.preventDefault();
-    console.log("login=>",userLogin);
+    // console.log("login=>",userLogin);
     try {
       let result = await fetch('http://localhost:20202/api/ben/login',{
         method: "POST",
@@ -39,9 +45,10 @@ const Login = () => {
         let data = await result.json()
           //  it chick password -------------------
             if(data != 'invalude password'){
-                console.log(" token=>  ", data)
+                // console.log(" token=>  ", data)
                 // set token on localStorage--------
-                 localStorage.setItem("token", data.token)
+                //  localStorage.setItem("token", data.token)
+                storeTonken(data)
                  setUserLogin({email: "", password: "", });
                  // switch page to home---
                 navigate('/')

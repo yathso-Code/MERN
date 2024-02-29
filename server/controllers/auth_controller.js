@@ -74,5 +74,14 @@ let login = async(req, resp)=>{
        resp.status(500).json("email is not found")
     }
 }
+// --------------------get the data of user who is login-----------------------
+let User = async(req, resp)=>{
+    try {
+        let x= await DB.findById(req.body.id).select({password :0});
+        resp.status(200).send(x);
+    } catch (error) {
+        resp.send("pleace check your token")
+    }
+}
 
-module.exports = {home, register, login};
+module.exports = {home, register, login, User};

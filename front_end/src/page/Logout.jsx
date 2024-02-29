@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Navigate } from 'react-router';
+import { useContext, } from "react";
+import { ThemeContext } from '../App';
+
 
 const Logout = () => {
-  return (
-    <div>
-      <h1>Logout </h1>
-    </div>
-  )
+  const {logoutUser} = useContext(ThemeContext);
+
+  useEffect(()=>{
+      logoutUser();
+  },[logoutUser])
+
+  return <Navigate to="/login"/>
 }
+
 
 export default Logout
