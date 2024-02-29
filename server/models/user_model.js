@@ -18,12 +18,19 @@
        type: String,
        require: true,
      },
+     
      // -----------admin----------------
      isAdmin:{ 
        type: Boolean,
        default: false
      },
   });
+
+
+
+
+
+
 
 // json web token---------------------------------------------
 userSchema.methods.generateToken = async function () {

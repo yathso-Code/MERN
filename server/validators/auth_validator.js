@@ -16,13 +16,13 @@ let signupSchema = z.object({
    phone: z
       .string({ required_error: "Phone is require" })
       .trim()
-      .min(10, { message: "name must be at least 10 characters" })
+      .min(10, { message: "miniam length of number is 10" })
       .max(24, { message: "name must not be more than 20 characters" }),
    password: z
       .string({ required_error: "password is require" })
       .trim()
-      .min(3, { message: "name must be at least 3 characters" })
-      .max(222, { message: "name must not be more than 222 characters" }),
+      .min(6, { message: "password must be at least 6 characters" })
+      .max(222, { message: "password must not be more than 222 characters" }),
 });
 
 module.exports = signupSchema;

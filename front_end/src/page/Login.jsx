@@ -33,15 +33,25 @@ const Login = () => {
         },
         body: JSON.stringify(userLogin),
       })
+             
+
       if(result.ok){
         let data = await result.json()
-        console.log(" token=>  ", data)
-        // set token on localStorage--------
-        localStorage.setItem("token", data.token)
+          //  it chick password -------------------
+            if(data != 'invalude password'){
+                console.log(" token=>  ", data)
+                // set token on localStorage--------
+                 localStorage.setItem("token", data.token)
+                 setUserLogin({email: "", password: "", });
+                 // switch page to home---
+                navigate('/')
+            }else{
+              alert(data)
+        }
+
+      }
+      else {
         
-        setUserLogin({email: "", password: "", });
-          // navigate('/')
-      }else{
           alert("pleace check your ID & password...")
       }
       // console.log("token=> out  ", result)

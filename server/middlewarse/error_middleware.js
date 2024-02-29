@@ -1,3 +1,4 @@
+// it is global middleware --------------------------
 let errorMiddleware = (err, req, resp, next)=>{
    let status = err.status || 500;
    // let message = err.message || "BACKEND ERROR";

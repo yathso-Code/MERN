@@ -50,13 +50,13 @@ let login = async(req, resp)=>{
         let userExist = await DB.findOne({ email });
         // check user is exist or not--------
         if(!userExist){
-           return resp.Status(404).json("Invalid Email ")
-        }
+            resp.Status(404).json("Invalid Email ")
+        }else{
 
        // compait password---
        let user = await bcrypt.compare(password, userExist.password);
        
-       console.log(user)
+       console.log(user)// it give true. if password is match or false
        if(user){
            resp.status(200).json({
                mess: "login in successful",
@@ -67,10 +67,11 @@ let login = async(req, resp)=>{
           
            resp.json("invalude password")
        }
+    }
        
 
     } catch (error) {
-       resp.status(500).json("internet sever error")
+       resp.status(500).json("email is not found")
     }
 }
 

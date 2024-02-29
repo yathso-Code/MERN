@@ -33,13 +33,25 @@ const SignUp = () => {
         },
         body: JSON.stringify(user),
       });
+      //  console.log("responsive from create acount ==>", result.json())
       if(result.ok){
-        alert("login Successful")
-        //  console.log("token=>", result)
-         setUser({ username: "", email: "", phone: "", password: "", });
-        navigate('/login');
+        let x = await result.json()
+        // console.log("x=>>", x);
+           if(!x.msg){
+              //  give alert if user is alredy exist ---------
+               alert(x);
+           }else{
+               
+              // set the token on localStorage---
+              localStorage.setItem("token", x.token);
+
+              setUser({ username: "", email: "", phone: "", password: "", });
+              //  switch page to home page -----
+             navigate('/');
+             alert("login Successful") ;
+           }
       }
-      console.log("Account is complete...", result)
+
     } catch (error) {
       alert("registration is not send")
     }
