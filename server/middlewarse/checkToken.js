@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+let DB = require('../models/user_model')
 
 let checkToken = async (req , resp, next)=>{
      let token = req.header("Authorization");
@@ -13,6 +14,12 @@ let checkToken = async (req , resp, next)=>{
     try {
          let isVerified = jwt.verify(jwtToken, process.env.MY_SIGNER);
          console.log("isVerified==> ", isVerified);
+         let userData = await DB.findOne({email: isVerified.email}).select({password: 0});
+
+         req.user= userData;
+         req.token = token;
+         req.userID = userData._id;
+
          next();
     } catch (error) {
         return resp.send({mes: "token is not match"})

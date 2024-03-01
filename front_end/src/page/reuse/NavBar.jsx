@@ -7,7 +7,7 @@ import { ThemeContext } from '../../App';
 const NavBar = () => {
 
   // get the token 
-  const {isLoggedIn,logoutUser} = useContext(ThemeContext);
+  const {isLoggedIn,logoutUser, user} = useContext(ThemeContext);
 
   // ---------------
   let handleLogout = () =>{
@@ -18,7 +18,7 @@ const NavBar = () => {
    <input type="checkbox" id="nav-check"/>
    <div className="nav-header">
      <div className="nav-title">
-       Hello ben
+      {user? `Hello ${user.username}`: `welcome` } 
      </div>
    </div>
    <div className="nav-btn">

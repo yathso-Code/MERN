@@ -1,13 +1,31 @@
 import React from 'react'
 import './Contact.css';
 import { useState } from 'react';
+import { useContext, } from "react";
+import { ThemeContext } from '../App';
+
 
 const Contact = () => {
+  const {user} = useContext(ThemeContext);
+  console.log("user ", user)
+
   const [contact, setContact] = useState({
     username: "",
     email: "",
     message: "",
   });
+  let [userData, setUserData] = useState(true);
+
+
+  if(user && userData){
+    setContact({
+      username: user.username,
+      email: user.email,
+      message: ""
+    })
+    setUserData(false)
+  }
+  
 
   // lets tackle our handleInput
   const handleInput = (e) => {

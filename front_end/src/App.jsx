@@ -37,29 +37,33 @@ function App() {
   }
 
   // --------------check the token verification -------------------pending project 
-  let checkToken = async()=>{
-      try {
-          let x= await fetch('http://localhost:20202/api/ben/user',{
-            method: "POST",
-            headers:{
-                   "Authorization": "application/json",
+  let checkToken = async () => {
+    try {
+        let jwtData = await fetch('http://localhost:20202/api/ben/user', {
+            method: "GET",
+            headers: {  // Corrected from "header" to "headers"
+                Authorization: `bearer ${token}`,
             },
-          }
+        });
 
-          )  
+        // console.log("jwtData ok", jwtData);
+        if(jwtData.ok){
+           let data = await jwtData.json();
+          //  console.log("jwt token =>", data)
+          setUser(data.result)
+        }
+    } catch (error) {
 
-      } catch (error) {
-        
-      }
-  }
-
+    }
+}
+  // JWT auntaction ----------------------------------------------
   useEffect(()=>{
      checkToken()
-  }, [])
+  },[isLoggedIn])
   return (
     <>
 
-      <ThemeContext.Provider value={{ token, storeTonken, logoutUser, isLoggedIn }}>
+      <ThemeContext.Provider value={{ token, storeTonken, logoutUser, isLoggedIn, user }}>
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />

@@ -77,8 +77,9 @@ let login = async(req, resp)=>{
 // --------------------get the data of user who is login-----------------------
 let User = async(req, resp)=>{
     try {
-        let x= await DB.findById(req.body.id).select({password :0});
-        resp.status(200).send(x);
+       let result = req.user;
+       console.log("result", result)
+       resp.json({result});
     } catch (error) {
         resp.send("pleace check your token")
     }
