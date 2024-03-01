@@ -3,6 +3,8 @@ import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext, } from "react";
 import { ThemeContext } from '../App';
+import {  ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
 
@@ -45,9 +47,9 @@ const SignUp = () => {
         // console.log("x=>>", x);
            if(!x.msg){
               //  give alert if user is alredy exist ---------
-               alert(x);
+              //  alert(`${x}`);
+              toast.warn(x);
            }else{
-               
               // set the token on localStorage---
               storeTonken(x)
 
@@ -66,6 +68,7 @@ const SignUp = () => {
 
   return (
     <div className='signup_box'>
+    <ToastContainer />
        <form onSubmit={handleSubmit}>
           <h1>Register</h1>
          <input type='text'
@@ -73,8 +76,10 @@ const SignUp = () => {
          name="username"
          value={user.username}
          onChange={handleInput}
+         pattern='[a-z]*'
          />
          <br></br>
+         
 
          <input type='email'
           placeholder='email'
@@ -89,6 +94,7 @@ const SignUp = () => {
           name="phone"
           value={user.phone}
           onChange={handleInput}
+          pattern='[0-9]{10}'
           />
          <br></br>
 

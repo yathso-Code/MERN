@@ -20,6 +20,7 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [user, setUser] = useState('');
+  let [serData , setSerData] = useState([])
   
 
   // ----------------set token -------------------
@@ -56,14 +57,33 @@ function App() {
 
     }
 }
-  // JWT auntaction ----------------------------------------------
+
+  // ================fetch service data list-----------------------
+  let serviceData = async()=>{
+        try {
+            let result = await fetch('http://localhost:20202/api/service/list',{
+              method: "GET",
+            })
+           
+            if(result.ok){
+                let data = await result.json();
+                 console.log("servive Data =>", data);
+                setSerData(data);
+            }
+        } catch (error) {
+            console.log("service data is not fetch")
+        }
+  }
+   
+  // JWT auntaction ----------------------------------------------and git the data of services
   useEffect(()=>{
+     serviceData()
      checkToken()
   },[isLoggedIn])
   return (
     <>
 
-      <ThemeContext.Provider value={{ token, storeTonken, logoutUser, isLoggedIn, user }}>
+      <ThemeContext.Provider value={{ token, storeTonken, logoutUser, isLoggedIn, user , serData }}>
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />

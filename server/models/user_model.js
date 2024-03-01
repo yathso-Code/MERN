@@ -28,10 +28,6 @@
 
 
 
-
-
-
-
 // json web token---------------------------------------------
 userSchema.methods.generateToken = async function () {
     try {

@@ -25,7 +25,19 @@
      width: 300px;
      border-radius: 20px;
      border: none;
-     /* outline: none; */
+     outline: none;
+}
+.signup_box form input:invalid{
+     animation: shake .5s;
+     border: 2px solid red;
+}
+@keyframes shake {
+    25%{transform: translate(4px);}
+    50%{transform: translate(-4px);}
+    100%{transform: translate(4px);}
+}
+.signup_box form input:valid{
+    border: 2px solid rgb(11, 206, 11);
 }
 .signup_box form button{
    background-color: teal;

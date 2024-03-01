@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext, } from "react";
 import { ThemeContext } from '../App';
+import {  ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
@@ -51,23 +53,26 @@ const Login = () => {
                 storeTonken(data)
                  setUserLogin({email: "", password: "", });
                  // switch page to home---
+                 toast.success("login success") 
                 navigate('/')
+               
             }else{
-              alert(data)
+              // alert(data)
+              toast.warn(data);
         }
-
       }
       else {
         
-          alert("pleace check your ID & password...")
+          toast.warn("pleace check your ID & password...")
       }
       // console.log("token=> out  ", result)
     } catch (error) {
-      alert("Incurrect user id or password")
+      toast.warn("Incurrect user id or password")
     }
   }
   return (
     <div className='login_box'>
+    <ToastContainer />
       <form onSubmit={handleSubmit}>
          <h1>Login</h1>
 

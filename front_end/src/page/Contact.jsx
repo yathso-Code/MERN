@@ -3,6 +3,8 @@ import './Contact.css';
 import { useState } from 'react';
 import { useContext, } from "react";
 import { ThemeContext } from '../App';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Contact = () => {
@@ -56,7 +58,7 @@ const Contact = () => {
         setContact({ username: "", email: "", message: "", });
         
      }
-     alert("message is send")
+     toast.success("message is send")
     } catch (error) {
       alert("message is not send")
 
@@ -65,6 +67,7 @@ const Contact = () => {
 
   return (
     <div className='contact_box'>
+      <ToastContainer />
        <form onSubmit={handleSubmit}>
          <h1>Contact</h1>
         <input type='text' placeholder='name'

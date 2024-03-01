@@ -1,11 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import './Services.css';
+import { ThemeContext } from '../App';
 
 const Services = () => {
-  return (
-    <div>
-      services
-    </div>
-  )
-}
+  const { serData } = useContext(ThemeContext);
 
-export default Services
+  return (
+    <div className='main_service_box'>
+      <div className='service_box'>
+        {serData?.map((curElm, ind) => (
+
+          <div className="card" key={ind}>
+            <div className='img_box'>
+              <img src='' alt='' />
+            </div>
+            <div className='text_box'>
+              <p className='course'>{curElm.service}</p>
+              <h4 className='der'>{curElm.descriptipn}</h4>
+              <p className='price'>{`${curElm.price}`}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Services;
