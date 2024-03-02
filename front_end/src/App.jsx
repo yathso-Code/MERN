@@ -11,6 +11,10 @@ import Services from './page/Services'
 import NavBar from './page/reuse/NavBar'
 import Error from './page/Error'
 import Logout from './page/Logout'
+import Admin_Layout from './components/layouts/Admin_Layout'
+import AdminContacts from './page/AdminContacts'
+import AdminUsers from './page/AdminUsers'
+import { useNavigate } from 'react-router-dom';
 
 
 export let ThemeContext = createContext();
@@ -21,6 +25,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [user, setUser] = useState('');
   let [serData , setSerData] = useState([])
+  let [usersList, setUserList] = useState([]);
+  let Navigate = useNavigate();
   
 
   // ----------------set token -------------------
@@ -67,7 +73,7 @@ function App() {
            
             if(result.ok){
                 let data = await result.json();
-                 console.log("servive Data =>", data);
+                //  console.log("servive Data =>", data);
                 setSerData(data);
             }
         } catch (error) {
@@ -80,10 +86,37 @@ function App() {
      serviceData()
      checkToken()
   },[isLoggedIn])
+
+// ===========================Admin panel----------------------
+let getAllUserData = async() =>{
+  console.log("hh")
+    try {
+      let result = await fetch('http://localhost:20202/admin/users',{
+        method: "GET",
+        headers:{
+            Authorization: `bearer ${token}`,
+        },
+      });
+      if(result.ok){
+      let data = await result.json();
+      // console.log("user,s data", data);
+      if(data.mes == 'you are not admin'){
+       return Navigate('/');
+      }
+
+      setUserList(data);
+    } else {
+      console.error('Error fetching data:', result.statusText);
+    }
+    } catch (error) {
+       console.log("you are not admin");
+    }
+ }
+  
   return (
     <>
 
-      <ThemeContext.Provider value={{ token, storeTonken, logoutUser, isLoggedIn, user , serData }}>
+      <ThemeContext.Provider value={{setUserList,usersList, getAllUserData, token, storeTonken, logoutUser, isLoggedIn, user , serData }}>
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -94,6 +127,10 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path='/logout' element={<Logout />} />
           <Route path='*' element={<Error />} />
+          <Route path='/admin' element={<Admin_Layout/>}>
+               <Route path='users' element={<AdminUsers/>}/>
+               <Route path='contacts' element={<AdminContacts/>} />
+          </Route>
         </Routes>
       </ThemeContext.Provider>
     </>

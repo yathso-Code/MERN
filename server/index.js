@@ -7,7 +7,8 @@ let router = require('./router/auth_router');
 let routerContact = require('./router/auth_contact')
 let connectDB = require('./utils/db');
 const errorMiddleware = require("./middlewarse/error_middleware");
-let routerService = require('./router/Service')
+let routerService = require('./router/Service');
+let routerAdmin = require('./router/admin_route');
 
 let corsOption={
     origin: "http://localhost:5173",
@@ -27,6 +28,8 @@ app.use('/api/ben', router);
 app.use('/api/form', routerContact);
 // ========FETCH SERVICES ==========
 app.use('/api/service',routerService)
+// ========admin controls--------------
+app.use('/admin', routerAdmin);
 
 
 

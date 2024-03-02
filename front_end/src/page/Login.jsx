@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   
-  const {storeTonken} = useContext(ThemeContext);
+  const {storeTonken, getAllUserData} = useContext(ThemeContext);
 
   const [userLogin, setUserLogin] = useState({
     email: "",
@@ -50,11 +50,23 @@ const Login = () => {
                 // console.log(" token=>  ", data)
                 // set token on localStorage--------
                 //  localStorage.setItem("token", data.token)
-                storeTonken(data)
-                 setUserLogin({email: "", password: "", });
-                 // switch page to home---
-                 toast.success("login success") 
-                navigate('/')
+                console.log("login data", data);
+                // -----------check wither user id admin--------
+                if(data.isAdmin){
+                  storeTonken(data)
+                  setUserLogin({email: "", password: "", });
+                  // switch page to home---
+                  toast.success("login success") 
+                  getAllUserData();
+                 navigate('/admin');
+                }else{
+                  storeTonken(data)
+                  setUserLogin({email: "", password: "", });
+                  // switch page to home---
+                  toast.success("login success") 
+                 navigate('/')
+                }
+                
                
             }else{
               // alert(data)

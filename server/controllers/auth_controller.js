@@ -62,6 +62,7 @@ let login = async(req, resp)=>{
                mess: "login in successful",
                token : await userExist.generateToken(),
                userId: userExist._id.toString(),
+               isAdmin: userExist.isAdmin,
            })
        }else{
           
