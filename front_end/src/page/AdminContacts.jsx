@@ -9,7 +9,7 @@ const AdminContacts = () => {
   let [contactList, setContactList] = useState([])
   const { token} = useContext(ThemeContext);
   let Navigate = useNavigate();
-
+// ---------------fetch all data of user contact -------------------------
    let getAllUserData = async() =>{
       try {
         let result = await fetch('http://localhost:20202/admin/contacts',{
@@ -32,6 +32,29 @@ const AdminContacts = () => {
   useEffect(()=>{
      getAllUserData()
   },[])
+
+  // -----------------delete contact data --------------------
+  let deleteDataCon = async (x)=>{
+    //  console.log(x)
+    try {
+        let result = await fetch(`http://localhost:20202/admin/contact/delete${x}`,{
+          method: "DELETE",
+          headers:{
+              Authorization: `bearer ${token}`,
+          },
+        });
+
+        if (result.ok) {
+          console.log("Data deleted successfully");
+          getAllUserData();
+      } else {
+          console.log("Failed to delete data");
+      }
+
+    } catch (error) {
+      console.log("data is not delete")
+    }
+} 
   return (
    <table>
    <caption><i className="fa-solid fa-envelope"></i>Contact Data list</caption>
@@ -50,7 +73,7 @@ const AdminContacts = () => {
           <td data-label="Name">{curelm.username}</td>
           <td data-label="Email">{curelm.email}</td>
           <td data-label="Message">{curelm.message}</td>
-          <td data-label="Edite"><button className='table_btn'>Delete</button></td>
+          <td data-label="Edite"><button className='table_btn' onClick={()=> deleteDataCon(curelm._id)}>Delete</button></td>
         </tr>
       ))
     }

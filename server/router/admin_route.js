@@ -9,6 +9,8 @@ router.route('/users').get(checkToken ,isAdmin,usersController.users);
 // -------------admin contact api----------------
 router.route('/contacts').get(checkToken,isAdmin, usersController.contacts);
 // --------------delete user Data----------
-router.route('/users/delete:id').delete(checkToken,isAdmin, usersController.userDelete )
+router.route('/users/delete:id').delete(checkToken,isAdmin, usersController.userDelete );
+// -------------delete contact data ------------
+router.route('/contact/delete:id').delete(checkToken, isAdmin, usersController.contactDelete );
 
 module.exports = router;

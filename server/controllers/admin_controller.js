@@ -23,10 +23,23 @@ let contacts = async (req, resp)=>{
 let userDelete = async (req, resp)=>{
      try {
           let id = req.params.id;
-          await DB.deleteOne({_id: id});
+         let x= await DB.deleteOne({_id: id});
+         resp.send(x);
      } catch (error) {
           resp.send("user not delete")
      }
 }
 
-module.exports = {users, contacts,  userDelete}
+// ==========delete the contact data --------------------
+// ===========delete the user Data -======================
+let contactDelete = async (req, resp)=>{
+     try {
+          let id = req.params.id;
+         let x= await Db.deleteOne({_id: id});
+         resp.send(x);
+     } catch (error) {
+          resp.send("user not delete")
+     }
+}
+
+module.exports = {users, contacts,  userDelete, contactDelete}

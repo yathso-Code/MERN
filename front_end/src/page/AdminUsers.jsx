@@ -12,25 +12,27 @@ const AdminUsers = () => {
   },[])
   
 // ======================delete data -------------------- 
- let deleteData = async (x)=>{
- 
-    try {
-        let result = await fetch(`http://localhost:20202/admin/users/delete${x}`,{
-          method: "DELETE",
-          headers:{
-              Authorization: `bearer ${token}`,
-          },
-        });
+  let deleteData = async (x)=>{
+      //  console.log(x)
+      try {
+          let result = await fetch(`http://localhost:20202/admin/users/delete${x}`,{
+            method: "DELETE",
+            headers:{
+                Authorization: `bearer ${token}`,
+            },
+          });
 
-        let data = await result.json();
-        // if(result.ok){
-        //   getAllUserData();
-        // }
-        console.log("dwltw")
-    } catch (error) {
-       console.log("data is not delete")
-    }
- } 
+          if (result.ok) {
+            console.log("Data deleted successfully");
+            getAllUserData();
+        } else {
+            console.log("Failed to delete data");
+        }
+
+      } catch (error) {
+        console.log("data is not delete")
+      }
+  } 
 
   return (
    <table>
